@@ -1,26 +1,17 @@
+// landing page 
+import {requireAuth} from "@/lib/auth-utils"
+import {caller} from "@/trpc/server"
+const Page = async ()=> {
 
-import { Button } from "@/components/ui/button";
-import { caller, getQueryClient, trpc } from "@/trpc/server";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { Client } from "./client";
-import { Suspense } from "react";
-
-export default async function Page() {
-
-  const queryClient = getQueryClient();
-
-  void queryClient.prefetchQuery(trpc.getUsers.queryOptions());
-
+  await requireAuth();
+  const data = await caller.getUsers();
   return (
     <div className="min-h-screen flex items-center justify-center">
-      
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense fallback={<div>Loading...</div>}>
-        <Client />
-        </Suspense>
-      </HydrationBoundary>
-
+       protected server components
+       {JSON.stringify(data)}
     </div>
   );
-}
+};
+
+export default Page;
   
