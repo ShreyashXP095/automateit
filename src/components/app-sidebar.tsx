@@ -52,8 +52,7 @@ export const AppSidebar = () => {
     const router = useRouter();
     const pathname = usePathname();
     const {hasActiveSubscription, isLoading} = useHasActiveSubscription();
-
-    console.log(hasActiveSubscription); 
+    
     return (
         //  only icons visible when collapsed   
         <Sidebar collapsible="icon">
