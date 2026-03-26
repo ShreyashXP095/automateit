@@ -7,4 +7,4 @@ const page = async ()=>{
         </p>
     );
 }
-export default page;
+export default page;                   
