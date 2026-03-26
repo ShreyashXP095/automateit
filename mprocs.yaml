@@ -1,0 +1,7 @@
+# isme kyse bhi kayi type ki terminal commands ek saath likh do 
+# jaise ki ye ... and then run [npm run dev:all]
+procs:
+  inngest:
+    cmd: ["npm" , "run" , "inngest:dev"]
+  next:
+    cmd: ["npm" , "run" , "dev"]
