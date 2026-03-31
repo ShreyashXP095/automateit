@@ -2,6 +2,6 @@
 # jaise ki ye ... and then run [npm run dev:all]
 procs:
   inngest:
-    cmd: ["npm" , "run" , "inngest:dev"]
+    cmd: ["npm.cmd" , "run" , "inngest:dev"]
   next:
-    cmd: ["npm" , "run" , "dev"]
+    cmd: ["npm.cmd" , "run" , "dev"]
