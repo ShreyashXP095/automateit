@@ -78,3 +78,24 @@ WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  h
 WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  h
 WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  h
 WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  h
+ERROR [lib::error] Error: Overlapped I/O operation is in progress. (0x800703E5)
+ERROR [lib::error] Error: Overlapped I/O operation is in progress. (0x800703E5)
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  l
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  l
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  l
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  l
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  h
+ERROR [lib::mprocs] Got panic. @info:panicked at src\vt100\screen.rs:438:10:
+called `Option::unwrap()` on a `None` value
+@stackTrace:disabled backtrace
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?9001  h
+WARN [lib::vt100::screen] CSI not implemented: ESC [ ?1004  h
