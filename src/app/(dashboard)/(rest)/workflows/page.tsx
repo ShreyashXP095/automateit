@@ -1,3 +1,4 @@
+import {WorkflowsError} from "@/features/workflows/components/workflows";
 import { requireAuth } from "@/lib/auth-utils";
 import { prefetchWorkflows } from "@/features/workflows/server/prefetch";
 import { HydrateClient } from "@/trpc/server";
@@ -7,6 +8,7 @@ import { WorkflowsContainer } from "@/features/workflows/components/workflows";
 import { WorkflowsList } from "@/features/workflows/components/workflows";
 import type {SearchParams} from "nuqs";
 import {workflowsParamsLoader} from "@/features/workflows/server/params-loader";
+import {WorkflowsLoading} from "@/features/workflows/components/workflows";
 type Props = {
     searchParams: Promise<SearchParams>
 }
@@ -20,8 +22,8 @@ const page = async ({searchParams}: Props) => {
         {/*  ye hydration client server se data leke aata hai and browser ko de deta hai 
           taaki browser ko baar baar server se data na maangna pade */}
         <HydrateClient> 
-            <ErrorBoundary fallback={<div>Error!</div>}>
-                <Suspense fallback={<div>Loading...</div>}>
+            <ErrorBoundary fallback={<WorkflowsError/>}>
+                <Suspense fallback={<WorkflowsLoading/>}>
                     <WorkflowsList/>
                 </Suspense>
             </ErrorBoundary>
