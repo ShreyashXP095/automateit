@@ -54,3 +54,31 @@ export const useRemoveWorkflow = ()=>{
         })
     );
 }
+
+// hook to get single workflow
+export const useSuspenseOneWorkflow = (id : string) => {
+    const trpc = useTRPC();
+    return useSuspenseQuery(trpc.workflows.getOne.queryOptions({id}));
+}
+
+export const useUpdateWorkflow = () => {
+    const trpc = useTRPC();
+    const queryClient = useQueryClient();
+
+    return useMutation(
+        trpc.workflows.updateName.mutationOptions({
+            onSuccess: (data) => {
+                toast.success(`WorkFlow "${data.name}" updated`);
+                queryClient.invalidateQueries(
+                    trpc.workflows.getMany.queryOptions({})
+                );
+                queryClient.invalidateQueries(
+                    trpc.workflows.getOne.queryOptions({id : data.id})
+                );
+            },
+            onError: (error) => {
+                toast.error(`Failed to update workflow: ${error.message}`);
+            },
+        })
+    );
+}
