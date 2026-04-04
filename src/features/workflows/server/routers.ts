@@ -5,6 +5,8 @@ import z from "zod" ;
 import { ChartScatter } from "lucide-react";
 
 import { PAGINATION } from "@/config/constants";    
+import {  NodeType } from "@/generated/prisma/client";
+import {Node , Edge} from "@xyflow/react" ; 
 
 export const workflowRouter = createTRPCRouter({
         create: premiumProcedure.mutation(({ctx})=>{ // it is to create a new workflow 
@@ -12,6 +14,19 @@ export const workflowRouter = createTRPCRouter({
                   data:{
                     name : generateSlug(3) , // means gen 3 random words 
                     userId: ctx.auth.user.id  , 
+                    
+                    nodes:{
+                        createMany:{
+                          data : [
+                           { 
+                            type:NodeType.INITIAL , 
+                            position:{x:0 , y :0 } , 
+                            name:NodeType.INITIAL, 
+                           }  , 
+                           // can add more intial nodes, by { --} , {--} same way . 
+                          ]   
+                        }   ,
+                    } , 
                   } , 
              }) ; 
         }) , 
@@ -42,14 +57,39 @@ export const workflowRouter = createTRPCRouter({
 
         getOne: protectedProcedure
         .input(z.object({id : z.string()}))
-        .query(({ctx ,input})=>{ // it is to get a workflow 
-            return prisma.workflow.findUniqueOrThrow({
+        .query(async({ctx ,input})=>{ // it is to get a workflow 
+            const workflow = await  prisma.workflow.findUniqueOrThrow({
                 where:{
                     id : input.id , 
                     userId : ctx.auth.user.id , 
                 } , 
+                include : {nodes:true ,connections : true } , 
             }) ; 
-        })  , 
+             
+            // transform server nodes to react-flow compatible nodes . 
+            const nodes : Node[]= workflow.nodes.map((node)=>({
+                id:node.id , 
+                type:node.type , 
+                position:node.position as { x:number , y:number} , 
+                data:(node.data as Record<string , unknown>) || {},    
+            })) ; 
+
+            // transform server edges to react-flow compatible nodes . 
+            const edges : Edge[]= workflow.connections.map((connection)=>({
+                id:connection.id , 
+                source:connection.fromNodeId , 
+                target:connection.toNodeId , 
+                sourceHandle:connection.fromOutput , 
+                targetHandle:connection.toInput , 
+            })) ; 
+
+            return {
+                id:workflow.id , 
+                name: workflow.name , 
+                nodes , 
+                edges , 
+            } ; 
+        })  ,   
         getMany: protectedProcedure
         .input(
             z.object({
