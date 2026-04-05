@@ -103,7 +103,7 @@ export const Editor = ({workflowId}: {workflowId: string}) => {
           <MiniMap/>       
           {/* vo chota sa canvas jisme pura graph dikhta h  */}
 
-          <Panel>
+          <Panel position= "top-right">
              <AddNodeButton/>
           </Panel>
       </ReactFlow>
