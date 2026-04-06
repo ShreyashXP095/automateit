@@ -5,7 +5,7 @@ import {ErrorBoundary} from "react-error-boundary";
 import {Suspense} from "react";
 import {EditorError, EditorLoading} from "@/features/editor/components/editor";
 import {Editor} from "@/features/editor/components/editor";
-import {EditorHeader} from "@/components/editor-header";
+import {EditorHeader} from "@/features/editor/components/editor-header";
 interface PageProps{
     params : Promise<{workflowId : string}>;
 }
@@ -14,7 +14,7 @@ const page = async ({params}:PageProps)=>{
     const {workflowId} = await params;
     prefetchOneWorkflow(workflowId);
     return (
-        <p>
+        <div className="flex flex-col h-screen">
             <HydrateClient> 
                 <ErrorBoundary fallback={<EditorError/>}>
                     <Suspense fallback={<EditorLoading/>}>
@@ -25,7 +25,7 @@ const page = async ({params}:PageProps)=>{
                     </Suspense>
                 </ErrorBoundary>
             </HydrateClient>
-        </p>
+        </div>
     );
 }
 export default page;    
